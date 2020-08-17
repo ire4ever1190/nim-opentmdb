@@ -1,0 +1,18 @@
+Question	opentdb.html#Question	opentdb: Question	
+Category	opentdb.html#Category	opentdb: Category	
+Both	opentdb.html#Both	QuestionType.Both	
+MultipleChoice	opentdb.html#MultipleChoice	QuestionType.MultipleChoice	
+Boolean	opentdb.html#Boolean	QuestionType.Boolean	
+QuestionType	opentdb.html#QuestionType	opentdb: QuestionType	
+QuestionCount	opentdb.html#QuestionCount	opentdb: QuestionCount	
+GlobalCount	opentdb.html#GlobalCount	opentdb: GlobalCount	
+getQuestions	opentdb.html#getQuestions,AsyncHttpClient,Category,string,QuestionType,int,string	opentdb: getQuestions(client: AsyncHttpClient; category: Category = Any;\n             difficulty: string = &quot;any&quot;; questionType: QuestionType = Both;\n             amount: int = 10; token: string = &quot;&quot;): Future[seq[Question]]	
+getQuestions	opentdb.html#getQuestions,HttpClient,Category,string,QuestionType,int,string	opentdb: getQuestions(client: HttpClient; category: Category = Any; difficulty: string = &quot;any&quot;;\n             questionType: QuestionType = Both; amount: int = 10; token: string = &quot;&quot;): seq[\n    Question]	
+size	opentdb.html#size,AsyncHttpClient,Category	opentdb: size(client: AsyncHttpClient; category: Category): Future[QuestionCount]	
+size	opentdb.html#size,HttpClient,Category	opentdb: size(client: HttpClient; category: Category): QuestionCount	
+totalSize	opentdb.html#totalSize,AsyncHttpClient	opentdb: totalSize(client: AsyncHttpClient): Future[GlobalCount]	
+totalSize	opentdb.html#totalSize,HttpClient	opentdb: totalSize(client: HttpClient): GlobalCount	
+createToken	opentdb.html#createToken,AsyncHttpClient	opentdb: createToken(client: AsyncHttpClient): Future[string]	
+createToken	opentdb.html#createToken,HttpClient	opentdb: createToken(client: HttpClient): string	
+resetToken	opentdb.html#resetToken,AsyncHttpClient,string	opentdb: resetToken(client: AsyncHttpClient; token: string): owned(Future[void])	
+resetToken	opentdb.html#resetToken,HttpClient,string	opentdb: resetToken(client: HttpClient; token: string)	
