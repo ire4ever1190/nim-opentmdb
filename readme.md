@@ -1,6 +1,11 @@
 this is a simple wrapper around [The Open Trivia Database](https://opentdb.com) which is a api to get trivia questions from a variety of categories and in multiple choice or true/false fashion
 
 The library is both sync and async
+install through nimble (I know it is spelled wrong)
+
+```
+nimble install opentrivadb
+```
 
 ### Example
 
