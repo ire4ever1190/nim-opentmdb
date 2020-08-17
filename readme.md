@@ -17,7 +17,7 @@ let client = newHttpClient()
 echo client.getQuestions() # Gets 10 questions and prints them out
 
 let asyncClient = newAsyncHttpClient()
-waitFor client.getQuestions()
+echo waitFor client.getQuestions()
 ```
 
 make sure to enable ssl when running
