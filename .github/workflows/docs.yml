@@ -16,9 +16,8 @@ jobs:
         key: ${{ runner.os }}-choosenim-devel-latest
         
     - name: Setup Nim Enviroment
-      uses: |
-        actions/checkout@master
-        jiro4989/setup-nim-action@v1
+    - uses: actions/checkout@master
+    - uses: jiro4989/setup-nim-action@v1
       with:
         nim-version: 'devel'
     
