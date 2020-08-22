@@ -25,7 +25,7 @@ jobs:
       run: nimble genDoc
     
     - name: deploy docs
-      uses: ./
+      uses: appleboy/gh-pages-action@master
       with:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
