@@ -1,7 +1,6 @@
 import httpclient
 import asyncdispatch
 import json
-import uri
 import opentdb/constants
 
 include opentdb/question
@@ -26,20 +25,20 @@ proc getQuestions*(client: HttpClient|AsyncHttpClient, category: Category = Any,
     ## difficulty is either "any", easy", "medium", or "hard"
     ## boolean means the answer is either true or false
     ## num is how many questions you want
-    runnableExamples:
-        import httpclient
-        let client = newHttpClient()
-        # Get questions with default parameters
-        let questions = client.getQuestions()
-        # Get questions that are easy
-        let easyQuestions = client.getQuestions(difficulty="easy")
-        # Get questions in relation to TV
-        let tvQuestions = client.getQuestions(category=TV)
-        # Get 100 questions
-        let hundredQuestions = client.getQuestions(amount=100)
-        # You can also combine them
-        let combinationQuestions = client.getQuestions(difficulty="easy", category=TV, amount=100)
-    
+    ##```nim
+    ##    import httpclient
+    ##    let client = newHttpClient()
+    ##    # Get questions with default parameters
+    ##    let questions = client.getQuestions()
+    ##    # Get questions that are easy
+    ##    let easyQuestions = client.getQuestions(difficulty="easy")
+    ##    # Get questions in relation to TV
+    ##    let tvQuestions = client.getQuestions(category=TV)
+    ##    # Get 100 questions
+    ##    let hundredQuestions = client.getQuestions(amount=100)
+    ##    # You can also combine them
+    ##    let combinationQuestions = client.getQuestions(difficulty="easy", category=TV, amount=100)
+    ##```
     when not defined(danger): # if you have turned on danger then you probably dont want this slowing you down
         if not ["any", "easy", "medium", "hard"].contains(difficulty):
             raise ValueError.newException("Difficulty parameter is not one of 'any', 'easy', 'medium', or 'hard'")
@@ -81,10 +80,11 @@ proc getQuestions*(client: HttpClient|AsyncHttpClient, category: Category = Any,
 
 proc size*(client: HttpClient|AsyncHttpClient, category: Category): Future[QuestionCount] {.multisync.} =
     ## Returns the numbers of questions in a category
-    runnableExamples:
-        import httpclient
-        let client = newHttpClient()
-        echo(client.size(TV).totalQuestionCount)
+    ##```nim
+    ##   import httpclient
+    ##    let client = newHttpClient()
+    ##    echo(client.size(TV).totalQuestionCount)
+    ##```
     if category == Any:
         raise ValueError.newException("Category cannot be Any, please use totalSize to get that")
     let url = URL_COUNT & $ord(category)
@@ -93,10 +93,11 @@ proc size*(client: HttpClient|AsyncHttpClient, category: Category): Future[Quest
 
 proc totalSize*(client: HttpClient|AsyncHttpClient): Future[GlobalCount] {.multisync.} =
     ## Returns the number of questions in total that opentdb has
-    runnableExamples:
-        import httpclient
-        let client = newHttpClient()
-        echo(client.totalSize().totalNumOfQuestions)
+    ##```nim
+    ##    import httpclient
+    ##    let client = newHttpClient()
+    ##    echo(client.totalSize().totalNumOfQuestions)
+    ##```
     let url = URL_COUNT_GLOBAL
     let response = await client.getContent(url)
     return parseJson(response)["overall"].to(GlobalCount)
@@ -104,13 +105,14 @@ proc totalSize*(client: HttpClient|AsyncHttpClient): Future[GlobalCount] {.multi
 proc createToken*(client: HttpClient|AsyncHttpClient): Future[string] {.multisync.} =
     ## Creates a token which makes sure you do not get the same questions twice
     ## After a while you will run out of responses and will need to reset the token
-    runnableExamples:
-        import httpclient
-        let client = newHttpClient()
-        let token = client.createToken()
-        let questions = client.getQuestions(token=token)
-        let secondQuestions = client.getQuestions(token=token)
-        # secondQuestions will not have any questions that are in questions
+    ##```nim
+    ##    import httpclient
+    ##    let client = newHttpClient()
+    ##    let token = client.createToken()
+    ##    let questions = client.getQuestions(token=token)
+    ##    let secondQuestions = client.getQuestions(token=token)
+    ##    # secondQuestions will not have any questions that are in questions
+    ##```
     let url = URL_TOKEN_API & "?command=request"
     let response = await client.getContent(url)
     return parseJson(response)["token"].getStr()
@@ -118,13 +120,14 @@ proc createToken*(client: HttpClient|AsyncHttpClient): Future[string] {.multisyn
 proc resetToken*(client: HttpClient|AsyncHttpClient, token: string) {.multisync.} =
     ## Resets a token so it can reuse questions
     # discard await is used so that it makes sure the token is reset before returning to the user
-    runnableExamples:
-        import httpclient
-        let client = newHttpClient()
-        let token = client.createToken()
-        # Run code that uses up all the questions
-        client.resetToken(token)
-        # Now you can rerun the code before
+    ##```nim
+    ##    import httpclient
+    ##    let client = newHttpClient()
+    ##    let token = client.createToken()
+    ##    # Run code that uses up all the questions
+    ##    client.resetToken(token)
+    ##    # Now you can rerun the code before
+    ##```
     discard await client.getContent(URL_TOKEN_API & "?command=reset&token=" & token)
 
 when isMainModule:
