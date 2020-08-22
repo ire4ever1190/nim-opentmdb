@@ -202,7 +202,7 @@ function main() {
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/ire4ever1190/nim-opentmdb/tree/master/src/opentdb/question.nim#L2"
+href="https://github.com/ire4ever1190/nim-opentmdb/tree/devel/src/opentdb/question.nim#L2"
 class="link-seesrc" target="_blank">Source</a>
 <a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb/question.nim#L2" class="link-seesrc" target="_blank" >Edit</a>
 
@@ -228,7 +228,7 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/ire4ever1190/nim-opentmdb/tree/master/src/opentdb/categories.nim#L1"
+href="https://github.com/ire4ever1190/nim-opentmdb/tree/devel/src/opentdb/categories.nim#L1"
 class="link-seesrc" target="_blank">Source</a>
 <a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb/categories.nim#L1" class="link-seesrc" target="_blank" >Edit</a>
 
@@ -240,7 +240,7 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/ire4ever1190/nim-opentmdb/tree/master/src/opentdb/questionType.nim#L2"
+href="https://github.com/ire4ever1190/nim-opentmdb/tree/devel/src/opentdb/questionType.nim#L2"
 class="link-seesrc" target="_blank">Source</a>
 <a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb/questionType.nim#L2" class="link-seesrc" target="_blank" >Edit</a>
 
@@ -256,7 +256,7 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/ire4ever1190/nim-opentmdb/tree/master/src/opentdb/questionCount.nim#L2"
+href="https://github.com/ire4ever1190/nim-opentmdb/tree/devel/src/opentdb/questionCount.nim#L2"
 class="link-seesrc" target="_blank">Source</a>
 <a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb/questionCount.nim#L2" class="link-seesrc" target="_blank" >Edit</a>
 
@@ -272,7 +272,7 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/ire4ever1190/nim-opentmdb/tree/master/src/opentdb/questionCount.nim#L8"
+href="https://github.com/ire4ever1190/nim-opentmdb/tree/devel/src/opentdb/questionCount.nim#L8"
 class="link-seesrc" target="_blank">Source</a>
 <a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb/questionCount.nim#L8" class="link-seesrc" target="_blank" >Edit</a>
 
@@ -290,25 +290,24 @@ class="link-seesrc" target="_blank">Source</a>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">TimeEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
-<p>Gets questions from <a class="reference external" href="https://opentdb.com">https://opentdb.com</a> in either sync or async fashion questions are encoded in url3986 (can be decoded with decodeUrl in uri module) Different categories that can be selected can be found in categories.nim difficulty is either &quot;any&quot;, easy&quot;, &quot;medium&quot;, or &quot;hard&quot; boolean means the answer is either true or false num is how many questions you want</p>
-<p><pre class="listing"><span class="Keyword">import</span> <span class="Identifier">httpclient</span>
-   <span class="Keyword">let</span> <span class="Identifier">client</span> <span class="Operator">=</span> <span class="Identifier">newHttpClient</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
-   <span class="Comment"># Get questions with default parameters</span>
-   <span class="Keyword">let</span> <span class="Identifier">questions</span> <span class="Operator">=</span> <span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">getQuestions</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
-   <span class="Comment"># Get questions that are easy</span>
-   <span class="Keyword">let</span> <span class="Identifier">easyQuestions</span> <span class="Operator">=</span> <span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">getQuestions</span><span class="Punctuation">(</span><span class="Identifier">difficulty</span><span class="Operator">=</span><span class="StringLit">&quot;easy&quot;</span><span class="Punctuation">)</span>
-   <span class="Comment"># Get questions in relation to TV</span>
-   <span class="Keyword">let</span> <span class="Identifier">tvQuestions</span> <span class="Operator">=</span> <span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">getQuestions</span><span class="Punctuation">(</span><span class="Identifier">category</span><span class="Operator">=</span><span class="Identifier">TV</span><span class="Punctuation">)</span>
-   <span class="Comment"># Get 100 questions</span>
-   <span class="Keyword">let</span> <span class="Identifier">hundredQuestions</span> <span class="Operator">=</span> <span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">getQuestions</span><span class="Punctuation">(</span><span class="Identifier">amount</span><span class="Operator">=</span><span class="DecNumber">100</span><span class="Punctuation">)</span>
-   <span class="Comment"># You can also combine them</span>
-   <span class="Keyword">let</span> <span class="Identifier">combinationQuestions</span> <span class="Operator">=</span> <span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">getQuestions</span><span class="Punctuation">(</span><span class="Identifier">difficulty</span><span class="Operator">=</span><span class="StringLit">&quot;easy&quot;</span><span class="Punctuation">,</span> <span class="Identifier">category</span><span class="Operator">=</span><span class="Identifier">TV</span><span class="Punctuation">,</span> <span class="Identifier">amount</span><span class="Operator">=</span><span class="DecNumber">100</span><span class="Punctuation">)</span>
-</pre></p>
-
+Gets questions from <a class="reference external" href="https://opentdb.com">https://opentdb.com</a> in either sync or async fashion questions are encoded in url3986 (can be decoded with decodeUrl in uri module) Different categories that can be selected can be found in categories.nim difficulty is either &quot;any&quot;, easy&quot;, &quot;medium&quot;, or &quot;hard&quot; boolean means the answer is either true or false num is how many questions you want
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span><span class="Whitespace"> </span><span class="Identifier">httpclient</span><span class="Whitespace">
+</span><span class="Keyword">let</span><span class="Whitespace"> </span><span class="Identifier">client</span><span class="Whitespace"> </span><span class="Operator">=</span><span class="Whitespace"> </span><span class="Identifier">newHttpClient</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Whitespace">
+</span><span class="Comment"># Get questions with default parameters</span><span class="Whitespace">
+</span><span class="Keyword">let</span><span class="Whitespace"> </span><span class="Identifier">questions</span><span class="Whitespace"> </span><span class="Operator">=</span><span class="Whitespace"> </span><span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">getQuestions</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Whitespace">
+</span><span class="Comment"># Get questions that are easy</span><span class="Whitespace">
+</span><span class="Keyword">let</span><span class="Whitespace"> </span><span class="Identifier">easyQuestions</span><span class="Whitespace"> </span><span class="Operator">=</span><span class="Whitespace"> </span><span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">getQuestions</span><span class="Punctuation">(</span><span class="Identifier">difficulty</span><span class="Operator">=</span><span class="StringLit">&quot;easy&quot;</span><span class="Punctuation">)</span><span class="Whitespace">
+</span><span class="Comment"># Get questions in relation to TV</span><span class="Whitespace">
+</span><span class="Keyword">let</span><span class="Whitespace"> </span><span class="Identifier">tvQuestions</span><span class="Whitespace"> </span><span class="Operator">=</span><span class="Whitespace"> </span><span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">getQuestions</span><span class="Punctuation">(</span><span class="Identifier">category</span><span class="Operator">=</span><span class="Identifier">TV</span><span class="Punctuation">)</span><span class="Whitespace">
+</span><span class="Comment"># Get 100 questions</span><span class="Whitespace">
+</span><span class="Keyword">let</span><span class="Whitespace"> </span><span class="Identifier">hundredQuestions</span><span class="Whitespace"> </span><span class="Operator">=</span><span class="Whitespace"> </span><span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">getQuestions</span><span class="Punctuation">(</span><span class="Identifier">amount</span><span class="Operator">=</span><span class="DecNumber">100</span><span class="Punctuation">)</span><span class="Whitespace">
+</span><span class="Comment"># You can also combine them</span><span class="Whitespace">
+</span><span class="Keyword">let</span><span class="Whitespace"> </span><span class="Identifier">combinationQuestions</span><span class="Whitespace"> </span><span class="Operator">=</span><span class="Whitespace"> </span><span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">getQuestions</span><span class="Punctuation">(</span><span class="Identifier">difficulty</span><span class="Operator">=</span><span class="StringLit">&quot;easy&quot;</span><span class="Punctuation">,</span><span class="Whitespace"> </span><span class="Identifier">category</span><span class="Operator">=</span><span class="Identifier">TV</span><span class="Punctuation">,</span><span class="Whitespace"> </span><span class="Identifier">amount</span><span class="Operator">=</span><span class="DecNumber">100</span><span class="Punctuation">)</span></pre>
 &nbsp;&nbsp;<a
-href="https://github.com/ire4ever1190/nim-opentmdb/tree/master/src/opentdb.nim#L21"
+href="https://github.com/ire4ever1190/nim-opentmdb/tree/devel/src/opentdb.nim#L22"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb.nim#L21" class="link-seesrc" target="_blank" >Edit</a>
+<a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb.nim#L22" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="getQuestions,HttpClient,Category,string,QuestionType,int,string"></a>
@@ -322,9 +321,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/ire4ever1190/nim-opentmdb/tree/master/src/opentdb.nim#L21"
+href="https://github.com/ire4ever1190/nim-opentmdb/tree/devel/src/opentdb.nim#L22"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb.nim#L21" class="link-seesrc" target="_blank" >Edit</a>
+<a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb.nim#L22" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="size,AsyncHttpClient,Category"></a>
@@ -333,16 +332,15 @@ class="link-seesrc" target="_blank">Source</a>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">TimeEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
-<p>Returns the numbers of questions in a category</p>
-<p><pre class="listing"><span class="Keyword">import</span> <span class="Identifier">httpclient</span>
-   <span class="Keyword">let</span> <span class="Identifier">client</span> <span class="Operator">=</span> <span class="Identifier">newHttpClient</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
-   <span class="Identifier">echo</span><span class="Punctuation">(</span><span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">size</span><span class="Punctuation">(</span><span class="Identifier">TV</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">totalQuestionCount</span><span class="Punctuation">)</span>
-</pre></p>
-
+Returns the numbers of questions in a category
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span><span class="Whitespace"> </span><span class="Identifier">httpclient</span><span class="Whitespace">
+</span><span class="Keyword">let</span><span class="Whitespace"> </span><span class="Identifier">client</span><span class="Whitespace"> </span><span class="Operator">=</span><span class="Whitespace"> </span><span class="Identifier">newHttpClient</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Whitespace">
+</span><span class="Identifier">echo</span><span class="Punctuation">(</span><span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">size</span><span class="Punctuation">(</span><span class="Identifier">TV</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">totalQuestionCount</span><span class="Punctuation">)</span></pre>
 &nbsp;&nbsp;<a
-href="https://github.com/ire4ever1190/nim-opentmdb/tree/master/src/opentdb.nim#L81"
+href="https://github.com/ire4ever1190/nim-opentmdb/tree/devel/src/opentdb.nim#L82"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb.nim#L81" class="link-seesrc" target="_blank" >Edit</a>
+<a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb.nim#L82" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="size,HttpClient,Category"></a>
@@ -354,9 +352,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/ire4ever1190/nim-opentmdb/tree/master/src/opentdb.nim#L81"
+href="https://github.com/ire4ever1190/nim-opentmdb/tree/devel/src/opentdb.nim#L82"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb.nim#L81" class="link-seesrc" target="_blank" >Edit</a>
+<a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb.nim#L82" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="totalSize,AsyncHttpClient"></a>
@@ -365,14 +363,13 @@ class="link-seesrc" target="_blank">Source</a>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">TimeEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
-<p>Returns the number of questions in total that opentdb has</p>
-<p><pre class="listing"><span class="Keyword">import</span> <span class="Identifier">httpclient</span>
-   <span class="Keyword">let</span> <span class="Identifier">client</span> <span class="Operator">=</span> <span class="Identifier">newHttpClient</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
-   <span class="Identifier">echo</span><span class="Punctuation">(</span><span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">totalSize</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">totalNumOfQuestions</span><span class="Punctuation">)</span>
-</pre></p>
-
+Returns the number of questions in total that opentdb has
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span><span class="Whitespace"> </span><span class="Identifier">httpclient</span><span class="Whitespace">
+</span><span class="Keyword">let</span><span class="Whitespace"> </span><span class="Identifier">client</span><span class="Whitespace"> </span><span class="Operator">=</span><span class="Whitespace"> </span><span class="Identifier">newHttpClient</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Whitespace">
+</span><span class="Identifier">echo</span><span class="Punctuation">(</span><span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">totalSize</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">totalNumOfQuestions</span><span class="Punctuation">)</span></pre>
 &nbsp;&nbsp;<a
-href="https://github.com/ire4ever1190/nim-opentmdb/tree/master/src/opentdb.nim#L94"
+href="https://github.com/ire4ever1190/nim-opentmdb/tree/devel/src/opentdb.nim#L94"
 class="link-seesrc" target="_blank">Source</a>
 <a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb.nim#L94" class="link-seesrc" target="_blank" >Edit</a>
 
@@ -386,7 +383,7 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/ire4ever1190/nim-opentmdb/tree/master/src/opentdb.nim#L94"
+href="https://github.com/ire4ever1190/nim-opentmdb/tree/devel/src/opentdb.nim#L94"
 class="link-seesrc" target="_blank">Source</a>
 <a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb.nim#L94" class="link-seesrc" target="_blank" >Edit</a>
 
@@ -397,19 +394,18 @@ class="link-seesrc" target="_blank">Source</a>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">TimeEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
-<p>Creates a token which makes sure you do not get the same questions twice After a while you will run out of responses and will need to reset the token</p>
-<p><pre class="listing"><span class="Keyword">import</span> <span class="Identifier">httpclient</span>
-   <span class="Keyword">let</span> <span class="Identifier">client</span> <span class="Operator">=</span> <span class="Identifier">newHttpClient</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
-   <span class="Keyword">let</span> <span class="Identifier">token</span> <span class="Operator">=</span> <span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">createToken</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
-   <span class="Keyword">let</span> <span class="Identifier">questions</span> <span class="Operator">=</span> <span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">getQuestions</span><span class="Punctuation">(</span><span class="Identifier">token</span><span class="Operator">=</span><span class="Identifier">token</span><span class="Punctuation">)</span>
-   <span class="Keyword">let</span> <span class="Identifier">secondQuestions</span> <span class="Operator">=</span> <span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">getQuestions</span><span class="Punctuation">(</span><span class="Identifier">token</span><span class="Operator">=</span><span class="Identifier">token</span><span class="Punctuation">)</span>
-   <span class="Comment"># secondQuestions will not have any questions that are in questions</span>
-</pre></p>
-
+Creates a token which makes sure you do not get the same questions twice After a while you will run out of responses and will need to reset the token
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span><span class="Whitespace"> </span><span class="Identifier">httpclient</span><span class="Whitespace">
+</span><span class="Keyword">let</span><span class="Whitespace"> </span><span class="Identifier">client</span><span class="Whitespace"> </span><span class="Operator">=</span><span class="Whitespace"> </span><span class="Identifier">newHttpClient</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Whitespace">
+</span><span class="Keyword">let</span><span class="Whitespace"> </span><span class="Identifier">token</span><span class="Whitespace"> </span><span class="Operator">=</span><span class="Whitespace"> </span><span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">createToken</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Whitespace">
+</span><span class="Keyword">let</span><span class="Whitespace"> </span><span class="Identifier">questions</span><span class="Whitespace"> </span><span class="Operator">=</span><span class="Whitespace"> </span><span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">getQuestions</span><span class="Punctuation">(</span><span class="Identifier">token</span><span class="Operator">=</span><span class="Identifier">token</span><span class="Punctuation">)</span><span class="Whitespace">
+</span><span class="Keyword">let</span><span class="Whitespace"> </span><span class="Identifier">secondQuestions</span><span class="Whitespace"> </span><span class="Operator">=</span><span class="Whitespace"> </span><span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">getQuestions</span><span class="Punctuation">(</span><span class="Identifier">token</span><span class="Operator">=</span><span class="Identifier">token</span><span class="Punctuation">)</span><span class="Whitespace">
+</span><span class="Comment"># secondQuestions will not have any questions that are in questions</span></pre>
 &nbsp;&nbsp;<a
-href="https://github.com/ire4ever1190/nim-opentmdb/tree/master/src/opentdb.nim#L105"
+href="https://github.com/ire4ever1190/nim-opentmdb/tree/devel/src/opentdb.nim#L104"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb.nim#L105" class="link-seesrc" target="_blank" >Edit</a>
+<a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb.nim#L104" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="createToken,HttpClient"></a>
@@ -421,9 +417,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/ire4ever1190/nim-opentmdb/tree/master/src/opentdb.nim#L105"
+href="https://github.com/ire4ever1190/nim-opentmdb/tree/devel/src/opentdb.nim#L104"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb.nim#L105" class="link-seesrc" target="_blank" >Edit</a>
+<a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb.nim#L104" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="resetToken,AsyncHttpClient,string"></a>
@@ -432,10 +428,17 @@ class="link-seesrc" target="_blank">Source</a>
 <dd>
 
 Resets a token so it can reuse questions
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span><span class="Whitespace"> </span><span class="Identifier">httpclient</span><span class="Whitespace">
+</span><span class="Keyword">let</span><span class="Whitespace"> </span><span class="Identifier">client</span><span class="Whitespace"> </span><span class="Operator">=</span><span class="Whitespace"> </span><span class="Identifier">newHttpClient</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Whitespace">
+</span><span class="Keyword">let</span><span class="Whitespace"> </span><span class="Identifier">token</span><span class="Whitespace"> </span><span class="Operator">=</span><span class="Whitespace"> </span><span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">createToken</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Whitespace">
+</span><span class="Comment"># Run code that uses up all the questions</span><span class="Whitespace">
+</span><span class="Identifier">client</span><span class="Operator">.</span><span class="Identifier">resetToken</span><span class="Punctuation">(</span><span class="Identifier">token</span><span class="Punctuation">)</span><span class="Whitespace">
+</span><span class="Comment"># Now you can rerun the code before</span></pre>
 &nbsp;&nbsp;<a
-href="https://github.com/ire4ever1190/nim-opentmdb/tree/master/src/opentdb.nim#L120"
+href="https://github.com/ire4ever1190/nim-opentmdb/tree/devel/src/opentdb.nim#L118"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb.nim#L120" class="link-seesrc" target="_blank" >Edit</a>
+<a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb.nim#L118" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="resetToken,HttpClient,string"></a>
@@ -447,9 +450,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/ire4ever1190/nim-opentmdb/tree/master/src/opentdb.nim#L120"
+href="https://github.com/ire4ever1190/nim-opentmdb/tree/devel/src/opentdb.nim#L118"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb.nim#L120" class="link-seesrc" target="_blank" >Edit</a>
+<a href="https://github.com/ire4ever1190/nim-opentmdb/edit/devel/src/opentdb.nim#L118" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 
@@ -462,7 +465,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-08-22 02:15:47 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-08-17 23:03:29 UTC</small>
       </div>
     </div>
   </div>
