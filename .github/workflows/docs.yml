@@ -21,7 +21,7 @@ jobs:
     - run: nimble genDoc
     - name: deploy docs
     - uses: actions/checkout@master
-      uses: ./
+    - uses: ./
       with:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
