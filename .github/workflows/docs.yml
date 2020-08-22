@@ -14,15 +14,14 @@ jobs:
       with:
         path: ~/.choosenim
         key: ${{ runner.os }}-choosenim-devel-latest
-    - uses: actions/checkout@master
-    - uses: jiro4989/setup-nim-action@v1
+        
+    - name: Setup Nim Enviroment
+      uses:
+        actions/checkout@master
+        jiro4989/setup-nim-action@v1
       with:
         nim-version: 'devel'
-    - run: nimble genDoc
-    - name: deploy docs
-    - uses: actions/checkout@master
-    - uses: ./
-      with:
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        remote_url: https://github.com/ire4ever1190nim-opentmdb.git
+    
+    - name: Generate Documentation
+      run: nimble genDoc
+
