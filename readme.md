@@ -4,7 +4,7 @@ The library is both sync and async
 install through nimble (I know it is spelled wrong)
 
 ```
-nimble install opentrivadb
+nimble install opentdb
 ```
 
 ### Example
