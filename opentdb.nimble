@@ -13,8 +13,9 @@ srcDir        = "src"
 requires "nim >= 1.2.0"
 
 task genDoc, "Generates the doc":
-    # exec("nim doc2 --git.url:https://github.com/ire4ever1190/nim-opentmdb --index:on --project src/opentdb.nim")
-    mvDir("src/htmldocs", "docs")
+    rmDir("docs")
+    exec("nim doc2 --outdir:docs --git.url:https://github.com/ire4ever1190/nim-opentmdb --git.commit:master --index:on --project src/opentdb.nim")
+    exec("nim buildIndex -o:docs/theindex.html docs")
     writeFile("docs/index.html", """
     <!DOCTYPE html>
     <html>
