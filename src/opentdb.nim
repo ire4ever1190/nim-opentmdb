@@ -9,6 +9,7 @@ include opentdb/questionType
 include opentdb/questionCount
 
 proc encodeQuery(values: openArray[(string, string)]): string =
+    ## Encodes a search query, used internally
     result = "?"
     for (key, value) in values:
         if value == "":
