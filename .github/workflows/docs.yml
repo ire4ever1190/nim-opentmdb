@@ -22,5 +22,5 @@ jobs:
         nim-version: 'devel'
       
     - name: Generate Documentation
-    - run: nimble genDoc
+      run: nimble genDoc
 
