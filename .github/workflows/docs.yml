@@ -23,4 +23,11 @@ jobs:
       
     - name: Generate Documentation
       run: nimble genDoc
+    
+    - name: deploy docs
+      uses: ./
+      with:
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        remote_url: https://github.com/ire4ever1190/nim-opentmdb.git
 
