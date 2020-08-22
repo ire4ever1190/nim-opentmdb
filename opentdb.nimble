@@ -1,6 +1,6 @@
 # Package
 
-version       = "1.0.1"
+version       = "1.0.2"
 author        = "Jake Leahy"
 description   = "Wrapper around the open trivia db api"
 license       = "MIT"
