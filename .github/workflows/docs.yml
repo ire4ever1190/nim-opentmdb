@@ -1,6 +1,9 @@
 name: Docs
 
 on:
+  release:
+    types: 
+      - created
   push:
     tags: v*
 
