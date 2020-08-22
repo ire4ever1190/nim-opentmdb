@@ -29,5 +29,6 @@ jobs:
       with:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
+        target_branch: master
         remote_url: https://github.com/ire4ever1190/nim-opentmdb.git
 
