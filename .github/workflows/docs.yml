@@ -20,6 +20,7 @@ jobs:
         nim-version: 'devel'
     - run: nimble genDoc
     - name: deploy docs
+    - uses: actions/checkout@master
       uses: ./
       with:
         username: ${{ secrets.USERNAME }}
