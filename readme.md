@@ -3,6 +3,8 @@ this is a simple wrapper around [The Open Trivia Database](https://opentdb.com) 
 The library is both sync and async
 install through nimble (I know it is spelled wrong)
 
+[Docs available here](https://tempdocs.netlify.app/opentdb/stable/opentdb.html)
+
 ```
 nimble install opentdb
 ```
