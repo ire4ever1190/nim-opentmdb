@@ -31,7 +31,7 @@ proc getQuestions*(client: HttpClient|AsyncHttpClient, category: Category = Any,
     ## Different categories that can be selected can be found in categories.nim
     ## boolean means the answer is either true or false
     ## num is how many questions you want
-    runnableExamples:
+    runnableExamples "-d:ssl":
       import httpclient
       let client = newHttpClient()
       # Get questions with default parameters
@@ -73,7 +73,7 @@ proc getQuestions*(client: HttpClient|AsyncHttpClient, category: Category = Any,
 
 proc size*(client: HttpClient|AsyncHttpClient, category: Category): Future[QuestionCount] {.multisync.} =
     ## Returns the numbers of questions in a category
-    runnableExamples:
+    runnableExamples "-d:ssl":
       import httpclient
       let client = newHttpClient()
       echo(client.size(TV).totalQuestionCount)
@@ -85,7 +85,7 @@ proc size*(client: HttpClient|AsyncHttpClient, category: Category): Future[Quest
 
 proc totalSize*(client: HttpClient|AsyncHttpClient): Future[GlobalCount] {.multisync.} =
     ## Returns the number of questions in total that opentdb has
-    runnableExamples:
+    runnableExamples "-d:ssl":
       import httpclient
       let client = newHttpClient()
       echo(client.totalSize().totalNumOfQuestions)
@@ -96,7 +96,7 @@ proc totalSize*(client: HttpClient|AsyncHttpClient): Future[GlobalCount] {.multi
 proc createToken*(client: HttpClient|AsyncHttpClient): Future[string] {.multisync.} =
     ## Creates a token which makes sure you do not get the same questions twice
     ## After a while you will run out of responses and will need to reset the token
-    runnableExamples:
+    runnableExamples "-d:ssl":
       import httpclient
       let client = newHttpClient()
       let token = client.createToken()
@@ -110,7 +110,7 @@ proc createToken*(client: HttpClient|AsyncHttpClient): Future[string] {.multisyn
 proc resetToken*(client: HttpClient|AsyncHttpClient, token: string) {.multisync.} =
     ## Resets a token so it can reuse questions
     # discard await is used so that it makes sure the token is reset before returning to the user
-    runnableExamples:
+    runnableExamples "-d:ssl":
       import httpclient
       let client = newHttpClient()
       let token = client.createToken()
