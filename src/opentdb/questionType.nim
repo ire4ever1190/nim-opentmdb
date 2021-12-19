@@ -1,5 +1,11 @@
 type
     QuestionType* = enum
-        Both
-        MultipleChoice
-        Boolean
+        Both = ""
+        MultipleChoice = "multiple"
+        Boolean = "boolean"
+
+    Difficulty* {.pure.} = enum
+      Any    = ""
+      Easy   = "easy"
+      Medium = "medium"
+      Hard   = "hard"

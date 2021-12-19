@@ -16,49 +16,41 @@ proc encodeQuery(values: openArray[(string, string)]): string =
             continue
         result &= "&" & key & "=" & value
 
+type
+  NoResults = IOError
+  InvalidParameter = IOError
+  TokenNotFound = IOError
+  TokenEmpty = IOError
+
 ## This package is a wrapper around [opentdb](https://opentdb.com)
 ## It is both async and sync so that is why there is two procs for each
 
-proc getQuestions*(client: HttpClient|AsyncHttpClient, category: Category = Any, difficulty: string = "any", questionType: QuestionType = Both, amount: int = 10, token: string = ""): Future[seq[Question]] {.multisync.} =
+proc getQuestions*(client: HttpClient|AsyncHttpClient, category: Category = Any, difficulty = Difficulty.Any, questionType: QuestionType = Both, amount: Natural = 10, token = ""): Future[seq[Question]] {.multisync.} =
     ## Gets questions from https://opentdb.com in either sync or async fashion
     ## questions are encoded in url3986 (can be decoded with decodeUrl in uri module)
     ## Different categories that can be selected can be found in categories.nim
-    ## difficulty is either "any", easy", "medium", or "hard"
     ## boolean means the answer is either true or false
     ## num is how many questions you want
-    ##```nim
-    ##    import httpclient
-    ##    let client = newHttpClient()
-    ##    # Get questions with default parameters
-    ##    let questions = client.getQuestions()
-    ##    # Get questions that are easy
-    ##    let easyQuestions = client.getQuestions(difficulty="easy")
-    ##    # Get questions in relation to TV
-    ##    let tvQuestions = client.getQuestions(category=TV)
-    ##    # Get 100 questions
-    ##    let hundredQuestions = client.getQuestions(amount=100)
-    ##    # You can also combine them
-    ##    let combinationQuestions = client.getQuestions(difficulty="easy", category=TV, amount=100)
-    ##```
-    when not defined(danger): # if you have turned on danger then you probably dont want this slowing you down
-        if not ["any", "easy", "medium", "hard"].contains(difficulty):
-            raise ValueError.newException("Difficulty parameter is not one of 'any', 'easy', 'medium', or 'hard'")
+    runnableExamples:
+      import httpclient
+      let client = newHttpClient()
+      # Get questions with default parameters
+      let questions = client.getQuestions()
+      # Get questions that are easy
+      let easyQuestions = client.getQuestions(difficulty=Easy)
+      # Get questions in relation to TV
+      let tvQuestions = client.getQuestions(category=TV)
+      # Get 100 questions
+      let hundredQuestions = client.getQuestions(amount=100)
+      # You can also combine them
+      let combinationQuestions = client.getQuestions(difficulty=Easy, category=TV, amount=100)
 
-        if amount <= 0:
-            raise ValueError.newException("'num' parameter must be > 0")
-
-    let questionTypeValue = case questionType:
-        of Both:
-            ""
-        of MultipleChoice:
-            "multiple"
-        of Boolean:
-            "Boolean"
+    let questionTypeValue = $questionType
             
     let queryString = encodeQuery({
         "amount": $amount,
-        "difficulty": if difficulty == "any": "" else: difficulty,
-        "category": if category == Any: "" else: $ord(category),
+        "difficulty": $difficulty,
+        "category": if category == Category.Any: "" else: $ord(category),
         "encode": "url3986"
     })
     let url = URL_API & queryString
@@ -68,25 +60,24 @@ proc getQuestions*(client: HttpClient|AsyncHttpClient, category: Category = Any,
 
     case jsonBody["response_code"].getInt():
     of 1:
-        raise IOError.newException("No Results: This could be because you were asking for too many questions")
+        raise NoResults.newException("No Results: This could be because you were asking for too many questions")
     of 2:
-        raise ValueError.newException("Invalid Parameter: Please make a bug report for this and show this in the issue " & queryString)
+        raise InvalidParameter.newException("Invalid Parameter: Please make a bug report for this and show this in the issue " & queryString)
     of 3:
-        raise ValueError.newException("Token Not Found: You probably have not created the token, please use the createToken proc to get one")
+        raise TokenNotFOund.newException("Token Not Found: You probably have not created the token, please use the createToken proc to get one")
     of 4:
-        raise ValueError.newException("Token Empty: You have gotten all the possible questions and so you need to reset the token")
+        raise TokenEmpty.newException("Token Empty: You have gotten all the possible questions and so you need to reset the token")
     else: # response_code == 0
         return jsonBody["results"].to(seq[Question])
                 
 
 proc size*(client: HttpClient|AsyncHttpClient, category: Category): Future[QuestionCount] {.multisync.} =
     ## Returns the numbers of questions in a category
-    ##```nim
-    ##   import httpclient
-    ##    let client = newHttpClient()
-    ##    echo(client.size(TV).totalQuestionCount)
-    ##```
-    if category == Any:
+    runnableExamples:
+      import httpclient
+      let client = newHttpClient()
+      echo(client.size(TV).totalQuestionCount)
+    if category == Category.Any:
         raise ValueError.newException("Category cannot be Any, please use totalSize to get that")
     let url = URL_COUNT & $ord(category)
     let response = await client.getContent(url)
@@ -94,11 +85,10 @@ proc size*(client: HttpClient|AsyncHttpClient, category: Category): Future[Quest
 
 proc totalSize*(client: HttpClient|AsyncHttpClient): Future[GlobalCount] {.multisync.} =
     ## Returns the number of questions in total that opentdb has
-    ##```nim
-    ##    import httpclient
-    ##    let client = newHttpClient()
-    ##    echo(client.totalSize().totalNumOfQuestions)
-    ##```
+    runnableExamples:
+      import httpclient
+      let client = newHttpClient()
+      echo(client.totalSize().totalNumOfQuestions)
     let url = URL_COUNT_GLOBAL
     let response = await client.getContent(url)
     return parseJson(response)["overall"].to(GlobalCount)
@@ -106,14 +96,13 @@ proc totalSize*(client: HttpClient|AsyncHttpClient): Future[GlobalCount] {.multi
 proc createToken*(client: HttpClient|AsyncHttpClient): Future[string] {.multisync.} =
     ## Creates a token which makes sure you do not get the same questions twice
     ## After a while you will run out of responses and will need to reset the token
-    ##```nim
-    ##    import httpclient
-    ##    let client = newHttpClient()
-    ##    let token = client.createToken()
-    ##    let questions = client.getQuestions(token=token)
-    ##    let secondQuestions = client.getQuestions(token=token)
-    ##    # secondQuestions will not have any questions that are in questions
-    ##```
+    runnableExamples:
+      import httpclient
+      let client = newHttpClient()
+      let token = client.createToken()
+      let questions = client.getQuestions(token=token)
+      let secondQuestions = client.getQuestions(token=token)
+      # secondQuestions will not have any questions that are in questions
     let url = URL_TOKEN_API & "?command=request"
     let response = await client.getContent(url)
     return parseJson(response)["token"].getStr()
@@ -121,14 +110,12 @@ proc createToken*(client: HttpClient|AsyncHttpClient): Future[string] {.multisyn
 proc resetToken*(client: HttpClient|AsyncHttpClient, token: string) {.multisync.} =
     ## Resets a token so it can reuse questions
     # discard await is used so that it makes sure the token is reset before returning to the user
-    ##```nim
-    ##    import httpclient
-    ##    let client = newHttpClient()
-    ##    let token = client.createToken()
-    ##    # Run code that uses up all the questions
-    ##    client.resetToken(token)
-    ##    # Now you can rerun the code before
-    ##```
+    runnableExamples:
+      import httpclient
+      let client = newHttpClient()
+      let token = client.createToken()
+      # Run code that uses up all the questions
+      client.resetToken(token)
     discard await client.getContent(URL_TOKEN_API & "?command=reset&token=" & token)
 
 when isMainModule:
