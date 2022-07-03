@@ -1,10 +1,9 @@
-this is a simple wrapper around [The Open Trivia Database](https://opentdb.com) which is a api to get trivia questions from a variety of categories and in multiple choice or true/false fashion
+This is a simple sync/async wrapper around [The Open Trivia Database](https://opentdb.com) which is an api to get trivia questions from a variety of categories in multiple choice or true/false fashion
 
-The library is both sync and async
-install through nimble (I know it is spelled wrong)
 
 [Docs available here](https://tempdocs.netlify.app/opentdb/stable/opentdb.html)
 
+install through nimble 
 ```
 nimble install opentdb
 ```
@@ -13,7 +12,6 @@ nimble install opentdb
 
 ```nim
 import opentrivadb
-import httpclient
 
 let client = newHttpClient()
 echo client.getQuestions() # Gets 10 questions and prints them out
